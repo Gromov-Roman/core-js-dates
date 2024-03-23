@@ -80,9 +80,9 @@ function getDayName(date) {
  */
 function getNextFriday(date) {
   const copyDate = new Date(date);
-  const days = (5 - copyDate.getDay() + 7) % 7 || 7;
+  const days = (5 - copyDate.getUTCDay() + 7) % 7 || 7;
 
-  copyDate.setDate(copyDate.getDate() + days);
+  copyDate.setDate(copyDate.getUTCDate() + days);
 
   return copyDate;
 }
@@ -283,11 +283,11 @@ function getWorkSchedule(period, countWorkDays, countOffDays) {
   let workDay = 0;
   let offDay = countOffDays;
 
-  const getNextDay = () => start.getDate() + 1;
+  const getNextDay = () => start.getUTCDate() + 1;
   const isWorkDay = () => workDay < countWorkDays && offDay === countOffDays;
   const addWorkDayToSchedule = () => {
-    const day = String(start.getDate()).padStart(2, '0');
-    const month = String(start.getMonth() + 1).padStart(2, '0');
+    const day = String(start.getUTCDate()).padStart(2, '0');
+    const month = String(start.getUTCMonth() + 1).padStart(2, '0');
     const year = start.getFullYear();
 
     schedule.push(`${day}-${month}-${year}`);
